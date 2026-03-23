@@ -54,7 +54,7 @@ The framework organizes cybersecurity practices into **6 functions**, **22 categ
 ### Install
 
 ```bash
-git clone https://github.com/your-org/clrposture.git
+git clone https://github.com/clrposture/clrposture.git
 cd clrposture
 pnpm install
 ```
