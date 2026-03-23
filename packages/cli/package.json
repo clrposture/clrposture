@@ -1,0 +1,31 @@
+{
+  "name": "@clrposture/cli",
+  "version": "0.1.0",
+  "description": "Clrposture CLI — NIST CSF 2.0 assessments from your terminal",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "clrposture": "./dist/index.js"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "tsc --noEmit",
+    "dev": "tsx src/index.ts"
+  },
+  "dependencies": {
+    "@clrposture/core": "workspace:*",
+    "@inquirer/prompts": "^7.4.0",
+    "commander": "^13.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "@vitest/coverage-v8": "^3.0.9",
+    "tsx": "^4.19.2",
+    "vitest": "^3.0.9"
+  }
+}
