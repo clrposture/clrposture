@@ -6,9 +6,23 @@ Enterprise GRC tools cost $2,000–$10,000/month. The alternative is a spreadshe
 
 ---
 
+## Regulatory context
+
+Clrposture is built on [NIST CSF 2.0](https://www.nist.gov/cyberframework) and maps directly to the compliance pressures facing U.S. small and mid-sized businesses:
+
+| Regulation / Standard | Who it affects | How Clrposture helps |
+|---|---|---|
+| [NIST CSF 2.0](https://doi.org/10.6028/NIST.CSWP.29) | All organizations | Full framework coverage — all 6 functions, 106 subcategories |
+| [Executive Order 14144](https://www.federalregister.gov/documents/2025/01/22/2025-01680/strengthening-and-promoting-innovation-in-the-nations-cybersecurity) (Jan 2025) | Federal contractors | `federal-contractor` profile targets supply chain and identity controls |
+| [CMMC 2.0](https://www.acq.osd.mil/cmmc/) / [DFARS 252.204-7012](https://www.ecfr.gov/current/title-48/chapter-2/subchapter-H/part-252/subpart-252.2/section-252.204-7012) | Defense Industrial Base | `dib` profile targets Tier 4 across CUI-relevant controls |
+| [HIPAA Security Rule](https://www.hhs.gov/hipaa/for-professionals/security/index.html) | Healthcare organizations | `healthcare` profile elevates PHI access and encryption controls |
+| [SOC 2](https://us.aicpa.org/interestareas/frc/assuranceadvisoryservices/aicpasoc2report) / [PCI DSS](https://www.pcisecuritystandards.org/) | Fintech / financial services | `fintech` profile elevates authentication and data security controls |
+
+---
+
 ## What is NIST CSF 2.0?
 
-The NIST Cybersecurity Framework 2.0 (released February 2024) is the U.S. government's primary cybersecurity guidance standard. It is increasingly required or strongly expected for:
+The [NIST Cybersecurity Framework 2.0](https://www.nist.gov/cyberframework) (released February 2024) is the U.S. government's primary cybersecurity guidance standard. It is increasingly required or strongly expected for:
 
 - Federal contractors (EO 14144, federal procurement)
 - Defense suppliers (CMMC 2.0 / DFARS)
