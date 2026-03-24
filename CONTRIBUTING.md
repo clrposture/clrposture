@@ -10,14 +10,14 @@ Contributions are welcome. This document covers how to get set up and what to wo
 ## Setup
 
 ```bash
-git clone https://github.com/clrposture/clrposture.git
-cd clrposture
+git clone https://github.com/clrposture/clrposture-core.git
+cd clrposture-core
 pnpm install
 pnpm build
 pnpm test
 ```
 
-All 45 tests should pass before you start.
+All 52 tests should pass before you start.
 
 ## Development workflow
 
@@ -45,9 +45,10 @@ No implementation code without a failing test driving it.
 - The `ScoringStrategy` interface makes this straightforward to extend without touching existing code
 
 ### Output formats (`packages/cli/src/commands/assess.ts`)
-- CSV export
 - HTML report
+- PDF report
 - Structured JSON schema improvements
+(CSV export is already implemented via `--output report.csv` or `--format csv`)
 
 ## Submitting a pull request
 
@@ -65,6 +66,7 @@ packages/
 │       ├── schema/        Zod schemas (single source of truth for all types)
 │       ├── data/csf.ts    Full NIST CSF 2.0 question bank (106 subcategories)
 │       ├── engine/        Scorer and GapAnalyzer
+│       ├── export/        gapReportToCsv() and future serializers
 │       └── profiles/      Pre-configured industry target profiles
 └── cli/           @clrposture/cli — interactive terminal tool
     └── src/
