@@ -2,6 +2,7 @@ import { select, confirm } from "@inquirer/prompts";
 import {
   CSF_FUNCTIONS,
   GapAnalyzer,
+  gapReportToCsv,
   FINTECH_PROFILE,
   HEALTHCARE_PROFILE,
   FEDERAL_CONTRACTOR_PROFILE,
@@ -24,6 +25,7 @@ const INDUSTRY_PROFILES: Record<string, Profile> = {
 export async function runAssess(options: {
   industry?: string;
   output?: string;
+  format?: string;
 }): Promise<void> {
   console.log("\nClrposture — NIST CSF 2.0 Assessment\n");
 
@@ -99,7 +101,11 @@ export async function runAssess(options: {
     }
 
     if (options.output) {
-      writeFileSync(options.output, JSON.stringify({ assessmentId, industry, answers, report }, null, 2));
+      const isCsv = options.format === "csv" || options.output.endsWith(".csv");
+      const content = isCsv
+        ? gapReportToCsv(report)
+        : JSON.stringify({ assessmentId, industry, answers, report }, null, 2);
+      writeFileSync(options.output, content);
       console.log(`\nReport saved to ${options.output}`);
     }
   } else {
