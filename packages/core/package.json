@@ -3,6 +3,22 @@
   "version": "0.1.0",
   "description": "NIST CSF 2.0 assessment engine — question bank, scoring, and gap analysis",
   "license": "MIT",
+  "homepage": "https://github.com/clrposture/clrposture#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clrposture/clrposture.git",
+    "directory": "packages/core"
+  },
+  "keywords": [
+    "nist",
+    "csf",
+    "cybersecurity",
+    "compliance",
+    "gap-analysis",
+    "sme",
+    "assessment",
+    "nist-csf-2"
+  ],
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -20,6 +36,7 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
+    "prepublishOnly": "pnpm build",
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "tsc --noEmit"
