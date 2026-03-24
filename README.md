@@ -69,7 +69,7 @@ The framework organizes cybersecurity practices into **6 functions**, **22 categ
 
 ```bash
 git clone https://github.com/clrposture/clrposture-core.git
-cd clrposture
+cd clrposture-core
 pnpm install
 ```
 
@@ -266,11 +266,12 @@ pnpm --filter @clrposture/core test
 pnpm --filter @clrposture/core test:watch
 ```
 
-The test suite covers:
+The test suite covers (52 tests, 5 suites):
 - Zod schema validation (valid and invalid inputs for every type)
 - Scorer accuracy (averages, edge cases, unknown subcategory IDs, empty input)
 - GapAnalyzer correctness (delta calculation, sorting, function summaries, partial answers)
 - Remediation planner (bucket assignment, step slicing by gap size, weakest function identification)
+- CSV export (formatting, bucket labels, pipe-separated steps, quote escaping)
 
 ---
 
@@ -284,7 +285,9 @@ packages/
 │       ├── data/csf.ts      Full NIST CSF 2.0 question bank (106 subcategories)
 │       ├── engine/
 │       │   ├── scorer.ts    Tier scoring engine (Strategy pattern)
-│       │   └── gap-analyzer.ts  Current vs. target gap analysis
+│       │   └── gap-analyzer.ts  Gap analysis + remediation planning
+│       ├── export/
+│       │   └── csv.ts       gapReportToCsv() — CSV serialization
 │       └── profiles/        Pre-configured industry target profiles
 └── cli/                     @clrposture/cli — interactive terminal assessment
     └── src/
@@ -301,7 +304,7 @@ Contributions are welcome. The most valuable areas:
 - **Question bank improvements** — better plain-language descriptions, clearer tier distinctions
 - **New industry profiles** — energy, retail, education, state/local government
 - **Scoring strategies** — weighted scoring, percentile-based scoring
-- **Output formats** — CSV export, HTML report, PDF
+- **Output formats** — HTML report, PDF (CSV is already supported)
 
 To contribute:
 
