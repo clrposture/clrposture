@@ -10,7 +10,7 @@ Contributions are welcome. This document covers how to get set up and what to wo
 ## Setup
 
 ```bash
-git clone https://github.com/clrposture/clrposture.git
+git clone https://github.com/clrposture/clrposture-core.git
 cd clrposture
 pnpm install
 pnpm build

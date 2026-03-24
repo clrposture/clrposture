@@ -12,7 +12,7 @@
 
 # Implementation State
 
-## Phase 0 — Status: In Progress
+## Phase 0 — Status: Complete
 
 ### Tech Stack
 
@@ -50,12 +50,14 @@ packages/
 │       │   ├── healthcare.ts          HIPAA, PHI protection + access control elevated
 │       │   ├── fintech.ts             SOC 2 / PCI DSS, auth + data security elevated
 │       │   └── mssp.ts                Neutral Tier 2–3 baseline for client assessments
-│       └── index.ts             Public API — re-exports everything above
+│       ├── export/csv.ts        gapReportToCsv() — serializes GapReport to CSV,
+       │                        one row per gap, pipe-separated steps column
+       └── index.ts             Public API — re-exports everything above
 └── cli/                         @clrposture/cli (binary: clrposture)
     └── src/
         ├── commands/assess.ts   Interactive assessment command — prompts through all
-        │                        106 subcategories, prints gap report, optionally saves
-        │                        to JSON via --output flag
+        │                        106 subcategories, prints gap report, saves to JSON
+        │                        or CSV via --output / --format flags
         └── index.ts             Commander entrypoint — `clrposture assess`
 ```
 
@@ -68,11 +70,12 @@ packages/
 
 ### Test Coverage
 
-45 tests across 4 suites, all passing:
+52 tests across 5 suites, all passing:
 - `schema/__tests__/schema.test.ts` — Zod schema validation (valid + invalid inputs for every type)
 - `engine/__tests__/scorer.test.ts` — scoring accuracy, edge cases, unknown IDs, empty input
 - `engine/__tests__/gap-analyzer.test.ts` — delta calculation, sort order, function summaries, partial answers
 - `engine/__tests__/remediation-planner.test.ts` — bucket assignment, step slicing, weakestFunction, sort order
+- `export/__tests__/csv.test.ts` — CSV formatting, bucket labels, pipe-separated steps, quote escaping
 
 ### Key Decisions Made
 
@@ -83,6 +86,11 @@ packages/
 - **GapReport sorted by delta descending** — highest-priority gaps (largest distance from target) appear first. This drives the remediation roadmap in Phase 3.
 - **Stepped remediations (`stepRemediations`)** — each subcategory carries three incremental remediation strings, one per tier transition (1→2, 2→3, 3→4). `GapAnalyzer` slices the relevant steps for each gap (`stepRemediations.slice(currentTier - 1, targetTier - 1)`), so a Tier 1→4 gap surfaces all three steps and a Tier 2→3 gap surfaces only one. This replaces a single generic remediation string.
 - **Remediation time-horizon buckets** — gaps are sorted into `immediate` (delta ≥ 3), `shortTerm` (delta = 2), and `strategic` (delta = 1) in the `RemediationPlan`. CLI renders each bucket with numbered steps per item.
+- **CSV export** — `gapReportToCsv()` in `export/csv.ts`. One row per gap, columns: `subcategoryId`, `currentTier`, `targetTier`, `delta`, `bucket`, `steps` (pipe-separated, always quoted). CLI auto-detects CSV from `.csv` extension or `--format csv` flag.
+- **Project name** — renamed from ClearPosture to **Clrposture** (dropped vowels, Flickr/Tumblr pattern). GitHub org: `clrposture`. npm scope: `@clrposture`. Binary: `clrposture`.
+- **GitHub repo** — https://github.com/clrposture/clrposture-core. Branch protection on `main`: CI must pass, no force pushes, no deletions, linear history. No review requirement (solo project).
+- **npm** — `@clrposture/core` published. `@clrposture/cli` is repo-only. Publishing automated via `.github/workflows/publish.yml` triggered on `v*` tags using npm Automation token stored as `NPM_TOKEN` secret.
+- **Regulatory references** — README includes a Regulatory Context table linking to NIST CSF 2.0 (DOI), EO 14144 (Federal Register), CMMC 2.0 + DFARS 252.204-7012 (DoD/eCFR), HIPAA Security Rule (HHS), SOC 2 (AICPA), PCI DSS. Supports NIW national importance documentation.
 
 ---
 
