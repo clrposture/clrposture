@@ -84,18 +84,23 @@ You will be prompted to:
 2. Answer each of the 106 subcategory questions by choosing a tier description
 
 At the end, you receive a gap report in your terminal showing:
-- Current average tier per function
-- Target average tier per function
-- Number of gaps per function
-- Top 5 priority gaps ranked by delta
+- Current and target average tier per function
+- Gaps bucketed by priority: Immediate (delta ≥ 3), Short-term (delta = 2), Strategic (delta = 1)
+- Numbered remediation steps per gap, one per tier transition
+- Weakest function highlighted
 
 ### Save results to a file
 
 ```bash
+# JSON (default)
 node packages/cli/dist/index.js assess --output report.json
+
+# CSV
+node packages/cli/dist/index.js assess --output report.csv
+node packages/cli/dist/index.js assess --output report.csv --format csv
 ```
 
-This saves the full assessment answers and gap report to `report.json`.
+The CSV contains one row per gap with columns: `subcategoryId`, `currentTier`, `targetTier`, `delta`, `bucket`, `steps`.
 
 ### Skip the industry prompt
 

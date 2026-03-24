@@ -1,4 +1,5 @@
 export * from "./schema/index.js";
+export { gapReportToCsv } from "./export/csv.js";
 export * from "./engine/scorer.js";
 export * from "./engine/gap-analyzer.js";
 export { CSF_FUNCTIONS } from "./data/csf.js";
